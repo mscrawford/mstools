@@ -5,22 +5,25 @@
 \title{toolFertilizerDistribution}
 \usage{
 toolFertilizerDistribution(
-  iteration_max = 50,
-  max_snupe = 0.85,
-  mapping,
-  from,
-  to,
+  iterMax = 50,
+  maxSnupe = 0.85,
   fertilizer,
-  SNUpE,
+  mapping = NULL,
+  from = NULL,
+  to = NULL,
+  snupe,
   withdrawals,
   organicinputs,
-  threshold = 0.5
+  threshold = 0.5,
+  progress = TRUE
 )
 }
 \arguments{
-\item{iteration_max}{maximum iteration for downscaling}
+\item{iterMax}{Maximum number of iterations for downscaling}
 
-\item{max_snupe}{the maximum level of nue or snupe}
+\item{maxSnupe}{Maximum allowed snupe (used to cap NA's during iteration)}
+
+\item{fertilizer}{Total inorganic fertilizer to distribute (regional level)}
 
 \item{mapping}{mapping used for disaggregation}
 
@@ -28,22 +31,22 @@ toolFertilizerDistribution(
 
 \item{to}{name of to column in mapping}
 
-\item{fertilizer}{total inorganic fertilizer to be distributed on regional leve}
+\item{snupe}{Regional soil nitrogen uptake efficiency}
 
-\item{SNUpE}{Nitrogen use efficiency or SNUPE on regional level which should be matched best possible}
+\item{withdrawals}{Nitrogen withdrawals at the cell level}
 
-\item{withdrawals}{nitrogen withdrawals on cell level}
+\item{organicinputs}{Non-inorganic fertilizer inputs at the cell level}
 
-\item{organicinputs}{non-inroganic fertilizer inputs on cell level}
+\item{threshold}{Tg N difference below which we consider convergence "good enough"}
 
-\item{threshold}{threshold in Tg Nr until when the distribution counts as converged}
+\item{progress}{Logical, should progress messages be printed}
 }
 \value{
-magpie object with fertilizer usage on cell level
+magpie object of fertilizer usage at cell level
 }
 \description{
-Disaggregates fertilizer usage, trying to best match a certain soil nitrogen uptake efficiency (SNUpE). Also used in magpie4 library
+Disaggregates fertilizer usage to best match soil nitrogen uptake efficiency (snupe).
 }
 \author{
-Benjamin Leon Bodirsky
+Benjamin Leon Bodirsky, Michael Crawford
 }
