@@ -22,18 +22,26 @@ export(toolSum2Country)
 export(toolWriteMadratLog)
 import(madrat)
 import(magclass)
-importFrom(madrat,toolOrderCells)
-importFrom(madrat,toolTimeAverage)
-importFrom(madrat,toolTimeSpline)
-importFrom(madrat,vcat)
-importFrom(magclass,"getYears<-")
-importFrom(magclass,collapseDim)
-importFrom(magclass,dimSums)
-importFrom(magclass,getItems)
-importFrom(magclass,getYears)
-importFrom(magpiesets,addLocation)
-importFrom(magpiesets,findset)
+importFrom(madrat,
+  toolOrderCells,
+  toolTimeAverage,
+  toolTimeSpline,
+  vcat
+)
+importFrom(magclass,
+  "getYears<-",
+  collapseDim,
+  dimSums,
+  getItems,
+  getYears
+)
+importFrom(magpiesets,
+  addLocation,
+  findset
+)
 importFrom(stringr,str_split)
-importFrom(utils,packageVersion)
-importFrom(utils,read.csv)
-importFrom(utils,read.csv2)
+importFrom(utils,
+  packageVersion,
+  read.csv,
+  read.csv2
+)

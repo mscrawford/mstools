@@ -80,7 +80,10 @@ toolHarmonize2Baseline <- function(x,
     ### data from reference year +1 on      ###
     ###########################################
 
-    lambda <- sqrt(x[, ref_year, , drop = FALSE] / base[, ref_year, , drop = FALSE])
+    magclass::suppressSpecificWarnings(
+      lambda <- sqrt(x[, ref_year, , drop = FALSE] / base[, ref_year, , drop = FALSE]),
+      "NaNs produced" # We handle NaNs explicitly two lines below
+    )
     lambda[base[, ref_year, ] <= x[, ref_year, ]] <- 1
     lambda[is.nan(lambda)] <- 1
     lambda <- lambda[, repRefYear, ]
