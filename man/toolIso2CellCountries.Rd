@@ -4,10 +4,13 @@
 \alias{toolIso2CellCountries}
 \title{toolIso2CellCountries}
 \usage{
-toolIso2CellCountries(x, absolute = NULL)
+toolIso2CellCountries(x, cells = "lpjcell", absolute = NULL)
 }
 \arguments{
 \item{x}{magpie object on iso country level}
+
+\item{cells}{deprecated. This function now always uses the 67420 cells; only "lpjcell" is accepted.
+The argument is kept for one release so that calls which still pass it keep working.}
 
 \item{absolute}{switch declaring the values as absolute (TRUE) or relative (FALSE)
 for additional (type-specific) diagnostic information. If not defined (NULL) additional diagnostics
