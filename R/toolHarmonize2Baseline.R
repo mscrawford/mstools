@@ -16,16 +16,23 @@
 #' @export
 
 toolHarmonize2Baseline <- function(x,
-  base,
-  ref_year = "y2015", # nolint: object_name_linter
-  method = "limited",
-  hard_cut = FALSE # nolint: object_name_linter
-) {
+                                   base,
+                                   ref_year = "y2015", # nolint: object_name_linter
+                                   method = "limited",
+                                   hard_cut = FALSE # nolint: object_name_linter
+                                   ) {
+
   if (!is.magpie(x) || !is.magpie(base)) stop("Input is not a MAgPIE object, x has to be a MAgPIE object!")
 
   # check for negative range of values; na.rm so an NA in x/base (which is meant to
   # propagate through to the output, not be treated as a sign) doesn't turn this NA
   negative <- (any(x < 0, na.rm = TRUE) | any(base < 0, na.rm = TRUE))
+
+  # for cases where baseline or scenario are negative, additive harmonization
+  # should be applied
+  if (negative) {
+    method <- "additive"
+  }
 
   # check if years are overlapping and refs is part of both time horizons
   if (!ref_year %in% intersect(getYears(x), getYears(base))) {
