@@ -1,26 +1,20 @@
 #' @title toolAnnualiseRotation
 #'
 #' @description Turns the harvest of a rotation crop into a yearly rate.
-#' LPJmL harvests biomass trees once per rotation, so their yearly harvest is zero in
-#' most years and large in the harvest year. A smoothing spline through such a series
-#' follows the position of the last harvest instead of the trend. This function spreads
-#' each harvest evenly over the years since the previous harvest of the same cell, so
-#' that the sum over a rotation is kept and the series can be smoothed like any other.
-#' The intervals between harvests tile the series, so every year gets the rate of the
-#' next harvest in or after it.
+#' This function spreads each harvest evenly over the years since the previous harvest
+#' of the same cell. The intervals between harvests tile the series, so every year gets
+#' the rate of the next harvest in or after it.
 #'
-#' The interval is read from the series itself: a cell that skips a rotation has its
-#' next harvest spread over the longer interval. Two conventions cover the ends of the
-#' series. The first harvest of a cell is divided by the number of years since the start
-#' of the series, or by \code{rotation} if that number is smaller, and written to all
-#' years up to the harvest. After the last harvest the last yearly rate is held, because
-#' the stand is still growing; this adds to the total of the series.
+#' The intervals are read from the series itself: a cell that skips a rotation has its
+#' next harvest spread over a longer interval.
 #'
-#' The function must see the pulse series exactly once. A second pass is not harmless:
-#' every year is positive by then, so the first year is divided by \code{rotation} again.
+#' The ends get special treatment. The first harvest of a cell is divided by the number
+#' of years since the start of the series, or by \code{rotation} if that number is smaller,
+#' and written to all years up to the harvest. After the last harvest the last yearly rate
+#' is held; this adds to the total of the series.
 #'
 #' @param x        magpie object with yearly values for consecutive years, without NAs
-#'                 and without negative values (cells x years x items)
+#'                 and without negative values
 #' @param rotation nominal rotation length in years. It is used for the first harvest
 #'                 of a cell only; all later intervals come from the data
 #' @return magpie object of the same dimensions as x
@@ -69,8 +63,7 @@ toolAnnualiseRotation <- function(x, rotation = 8) {
   interval <- c(max(rotation, harvestYears[1]), yearsBetweenHarvests)
   rate     <- pulse[harvestYears] / interval
 
-  # the intervals tile the series; after the last harvest the stand keeps growing,
-  # so its rate is held to the end
+  # the intervals tile the series; the rate of the last harvest is held to the end
   yearsToKeepConstantAtEnd <- length(pulse) - harvestYears[length(harvestYears)]
   return(rep(c(rate, rate[length(rate)]),
              times = c(harvestYears[1], yearsBetweenHarvests, yearsToKeepConstantAtEnd)))
