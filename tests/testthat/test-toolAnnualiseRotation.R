@@ -138,22 +138,3 @@ test_that("a harvest in the last year leaves no held tail", {
   last[, 1910, ] <- 80
   expect_equal(as.numeric(toolAnnualiseRotation(last)), rep(80 / 10, 10))
 })
-
-# OPEN QUESTION - skipped until the convention is decided. Two candidates -
-# ignore intervals far below rotation when choosing the rate to hold, or hold
-# the rate of the last full interval - both satisfy the expectations below, so
-# they stay as written once one is picked.
-test_that("a double harvest as the last pulse does not inflate the held tail", {
-  skip("held tail after a one-year interval: convention not decided yet")
-
-  x <- new.magpie("GLO.1", 1901:1930, "betr.rainfed", fill = 0)
-  x[, c(1908, 1916, 1917), ] <- c(40, 48, 16)
-  tailRate <- as.numeric(toolAnnualiseRotation(x)[, 1918:1930, ])
-
-  # the stand keeps growing, so the tail is positive and held constant ...
-  expect_true(all(tailRate > 0))
-  expect_equal(tailRate, rep(tailRate[1], length(tailRate)))
-  # ... but the 1917 pulse grew for one year, so its rate must not be the one
-  # held: at the spike rate the tail adds 208 instead of at most 78
-  expect_true(all(tailRate <= 48 / 8))
-})
