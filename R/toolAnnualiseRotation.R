@@ -44,17 +44,20 @@ toolAnnualiseRotation <- function(x, rotation = 8) {
   if (anyNA(x) || any(x < 0)) {
     stop("toolAnnualiseRotation needs data without NAs and without negative values.")
   }
+  if (!is.numeric(rotation) || length(rotation) != 1 || !is.finite(rotation) || rotation <= 0) {
+    stop("toolAnnualiseRotation needs a single positive number as rotation.")
+  }
 
   # apply returns the year dimension first, thus we need to permutate
   # the array afterwards
-  rate    <- apply(as.array(x), c(1, 3), annualiseSeries, rotation = rotation)
+  rate    <- apply(as.array(x), c(1, 3), .annualiseSeries, rotation = rotation)
   x[, , ] <- aperm(rate, c(2, 1, 3))
 
   return(x)
 }
 
 # yearly rates of one pulse series; conventions documented in toolAnnualiseRotation
-annualiseSeries <- function(pulse, rotation) {
+.annualiseSeries <- function(pulse, rotation) {
 
   harvestYears <- which(pulse > 0)
   if (length(harvestYears) == 0) {

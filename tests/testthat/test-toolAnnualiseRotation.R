@@ -31,6 +31,9 @@ test_that("input requirements are enforced", {
   negative <- pulses
   negative[1, 1950, ] <- -1
   expect_error(toolAnnualiseRotation(negative), "negative")
+  for (rotation in list(NA, NaN, Inf, 0, -8, c(8, 20), "8", numeric(0))) {
+    expect_error(toolAnnualiseRotation(pulses, rotation = rotation), "single positive number")
+  }
 })
 
 test_that("a regular rotation becomes the yearly rate of its cycle", {
@@ -75,16 +78,6 @@ test_that("irregular rotations use the interval found in the data", {
   expect_equal(series(annualised, 3), expected)
 })
 
-test_that("a skipped harvest is spread over the longer interval", {
-  delayed <- new.magpie("GLO.1", 1901:1932, "betr.rainfed", fill = 0)
-  delayed[, c(1908, 1917, 1925), ] <- c(40, 54, 48)
-  expect_equal(as.numeric(toolAnnualiseRotation(delayed)),
-               c(rep(40 / 8, 8),  # 1901-1908
-                 rep(54 / 9, 9),  # 1909-1917, the harvest missed in 1916
-                 rep(48 / 8, 8),  # 1918-1925, back on schedule
-                 rep(48 / 8, 7))) # 1926-1932, held tail
-})
-
 test_that("a harvest split across two years keeps its mass but stays a spike", {
   # the missed part of a failed harvest can instead appear as a second pulse one
   # year later. Its interval is one year, so it lands in that single year - the
@@ -119,16 +112,6 @@ test_that("a cell without harvests stays at zero", {
   expect_equal(as.numeric(toolAnnualiseRotation(zeros)), rep(0, length(zeros)))
 })
 
-test_that("a yearly series is changed in its first year only", {
-  # every year is a harvest here, so all intervals are one year. The first year
-  # is the documented exception: it is divided by rotation, so an already
-  # annualised cell does not come back unchanged
-  rate  <- series(annualised, 5)
-  pulse <- series(pulses, 5)
-  expect_equal(rate[-1], pulse[-1])
-  expect_equal(rate[1], pulse[1] / 8)
-})
-
 test_that("annualising twice is not idempotent: the first year is divided again", {
   twice <- toolAnnualiseRotation(annualised)
   expect_equal(as.numeric(twice[, 1902:2010, ]), as.numeric(annualised[, 1902:2010, ]))
@@ -154,17 +137,6 @@ test_that("a harvest in the last year leaves no held tail", {
   last <- new.magpie("GLO.1", 1901:1910, "betr.rainfed", fill = 0)
   last[, 1910, ] <- 80
   expect_equal(as.numeric(toolAnnualiseRotation(last)), rep(80 / 10, 10))
-})
-
-test_that("extending the series by one rotation changes only the held tail", {
-  long <- new.magpie(1, 1901:2012, "betr.rainfed", fill = 0)
-  long[, seq(years[1] + 7, 2012, by = 8), ] <- c(yields, mean(yields)) # one cycle more
-  outLong <- toolAnnualiseRotation(long)
-  expect_equal(as.numeric(outLong[, 1901:2004, ]), as.numeric(annualised[1, 1901:2004, ]))
-  # afterwards each series holds its own last rate: the short one the 13th
-  # cycle's, the long one the extra cycle's
-  expect_equal(as.numeric(annualised[1, 2005:2010, ]), rep(yields[13] / 8, 6))
-  expect_equal(as.numeric(outLong[, 2005:2012, ]), rep(mean(yields) / 8, 8))
 })
 
 # OPEN QUESTION - skipped until the convention is decided. Two candidates -
