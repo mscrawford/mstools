@@ -26,6 +26,7 @@ Authors:
   \item Kristine Karstens
   \item Felicitas Beier
   \item Jan Philipp Dietrich \email{dietrich@pik-potsdam.de}
+  \item Pascal Sauer \email{pascal.sauer@pik-potsdam.de} (\href{https://orcid.org/0000-0002-6856-8239}{ORCID}) (affiliation: Potsdam Institute for Climate Impact Research)
 }
 
 }

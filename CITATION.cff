@@ -4,8 +4,8 @@ type: software
 title: |-
   mstools: Tool functions that can be used by several madrat-dependent or
       magpie4 output functions
-version: 0.16.1
-date-released: '2026-09-10'
+version: 0.17.0
+date-released: '2026-09-22'
 abstract: Tool functions that can be used by several madrat-dependent or magpie4 output
   functions.
 authors:
@@ -19,6 +19,11 @@ authors:
 - family-names: Dietrich
   given-names: Jan Philipp
   email: dietrich@pik-potsdam.de
+- family-names: Sauer
+  given-names: Pascal
+  email: pascal.sauer@pik-potsdam.de
+  orcid: https://orcid.org/0000-0002-6856-8239
+  affiliation: Potsdam Institute for Climate Impact Research
 license: LGPL-3.0
 repository-code: https://github.com/pik-piam/magpie4
 doi: 10.5281/zenodo.1158582

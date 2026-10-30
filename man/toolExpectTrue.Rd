@@ -4,18 +4,12 @@
 \alias{toolExpectTrue}
 \title{toolExpectTrue}
 \usage{
-toolExpectTrue(check, description, level = 0, falseStatus = "note")
+toolExpectTrue(check, description, falseStatus = "note")
 }
 \arguments{
 \item{check}{logical check to be run (has to be either TRUE or FALSE)}
 
 \item{description}{a description of the check}
-
-\item{level}{as the test result will be linked to a function call, the function
-needs to know to which call it should be linked. by default (\code{level = 0}) the parent
-function call is being used. Increasing the number by one will let the function go
-up by one in the call stack, \code{level = -1} will use \code{toolExpectTrue} itself as
-function call.}
 
 \item{falseStatus}{the type of status that is used when the check fails (typically "note"
 for a simple message or "warn" for a warning).}
@@ -26,7 +20,7 @@ and returns either a message via \code{toolStatusMessage}, that
 the test was successful or that it failed.
 }
 \examples{
-toolExpectTrue(is.numeric(1), "data is numeric", level = -1)
+toolExpectTrue(is.numeric(1), "data is numeric")
 getMadratMessage("status")
 }
 \seealso{

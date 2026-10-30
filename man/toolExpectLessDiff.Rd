@@ -4,7 +4,7 @@
 \alias{toolExpectLessDiff}
 \title{toolExpectLessDiff}
 \usage{
-toolExpectLessDiff(x, y, maxdiff, description, level = 0, maxdiff2 = NULL)
+toolExpectLessDiff(x, y, maxdiff, description, maxdiff2 = NULL)
 }
 \arguments{
 \item{x}{object 1}
@@ -15,12 +15,6 @@ toolExpectLessDiff(x, y, maxdiff, description, level = 0, maxdiff2 = NULL)
 
 \item{description}{a description of the check}
 
-\item{level}{as the test result will be linked to a function call, the function
-needs to know to which call it should be linked. by default (\code{level = 0}) the parent
-function call is being used. Increasing the number by one will let the function go
-up by one in the call stack, \code{level = -1} will use \code{toolExpectTrue} itself as
-function call.}
-
 \item{maxdiff2}{optional additional threshold. If set it will serve as a second, critial threshold
 which will throw a warning (instead of a simple note in case of \code{maxdiff}) if being surpassed.}
 }
@@ -30,7 +24,7 @@ two objects and returns either a message via \code{toolStatusMessage}, that
 the test was successful or that it failed.
 }
 \examples{
-toolExpectLessDiff(1:3, 2:4, 10, "data is sufficiently close", level = -1)
+toolExpectLessDiff(1:3, 2:4, 10, "data is sufficiently close")
 getMadratMessage("status")
 }
 \seealso{

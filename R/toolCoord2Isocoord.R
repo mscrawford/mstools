@@ -16,8 +16,7 @@ toolCoord2Isocoord <- function(x) {
   mstools::toolExpectTrue(
     magclass::hasCoords(x),
     "has coordinate data (called `x` and `y`)",
-    falseStatus = "note",
-    level = 1
+    falseStatus = "note"
   )
 
   # Remove all spatial dimensions except x and y, ensure they're correctly named
@@ -35,8 +34,7 @@ toolCoord2Isocoord <- function(x) {
   mstools::toolExpectTrue(
     !(any(is.na(matches))),
     "all spatial dimensions can be mapped to ISO", # invalid dimensions are just removed, so this is only a note
-    falseStatus = "note",
-    level = 1
+    falseStatus = "note"
   )
 
   # Append iso to coordinates of x
@@ -47,8 +45,7 @@ toolCoord2Isocoord <- function(x) {
   mstools::toolExpectTrue(
     dim(x)[1] == 67420,
     "magclass object conforms to standard 67420 cell size",
-    falseStatus = "note",
-    level = 1
+    falseStatus = "note"
   )
 
   # Arrange spatial dimension of x to match the mapping

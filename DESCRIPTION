@@ -2,13 +2,15 @@ Type: Package
 Package: mstools
 Title: Tool functions that can be used by several madrat-dependent or
     magpie4 output functions
-Version: 0.16.1
-Date: 2026-09-10
+Version: 0.17.0
+Date: 2026-09-22
 Authors@R: c(
     person("Benjamin Leon", "Bodirsky", , "bodirsky@pik-potsdam.de", role = c("aut", "cre")),
     person("Kristine", "Karstens", role = "aut"),
     person("Felicitas", "Beier", role = "aut"),
-    person("Jan Philipp", "Dietrich", , "dietrich@pik-potsdam.de", role = "aut")
+    person("Jan Philipp", "Dietrich", , "dietrich@pik-potsdam.de", role = "aut"),
+    person("Pascal", "Sauer", , "pascal.sauer@pik-potsdam.de", role = "aut",
+           comment = c(affiliation = "Potsdam Institute for Climate Impact Research", ORCID = "0000-0002-6856-8239"))
   )
 Description: Tool functions that can be used by several madrat-dependent
     or magpie4 output functions.
@@ -23,9 +25,10 @@ Imports:
     magpiesets,
     stringr,
     yaml
-Suggests: 
+Suggests:
     covr,
-    testthat
-Encoding: UTF-8
+    testthat,
+    withr
 Config/Needs/website: tidyverse/tidytemplate
 Config/roxygen2/version: 8.1.0
+Encoding: UTF-8
