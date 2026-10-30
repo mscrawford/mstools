@@ -18,7 +18,7 @@
 #' @param rotation nominal rotation length in years. It is used for the first harvest
 #'                 of a cell only; all later intervals come from the data
 #' @return magpie object of the same dimensions as x
-#' @author Michael Crawford
+#' @author Michael Crawford, Patrick Rein
 #'
 #' @examples
 #' x <- new.magpie("GLO.1", 1901:1924, "rainfed.biomass tree", fill = 0)
